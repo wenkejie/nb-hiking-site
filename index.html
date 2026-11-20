@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#5f8c37" />
+<title>宁波徒步图鉴 · 188 条实测路线</title>
+<meta name="description" content="宁波地区徒步路线查询图鉴，收录 188 条实测路线，可按区县、难度星级、强度评级、里程、爬升筛选，星露谷风格像素界面。" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="assets/font.css" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<!-- ============ 顶栏 ============ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="./">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" shape-rendering="crispEdges">
+        <rect x="0" y="0" width="32" height="32" fill="#8a5a2b" stroke="#33200f" stroke-width="3" />
+        <rect x="3" y="3" width="26" height="26" fill="#f6e7c6" />
+        <rect x="21" y="7" width="4" height="4" fill="#e8b33d" />
+        <polygon points="6,25 13,12 18,21 21,15 26,25" fill="#5f8c37" />
+        <polygon points="11,16 13,12 15,16" fill="#fdf4e0" />
+        <rect x="3" y="25" width="26" height="4" fill="#4c7329" />
+      </svg>
+      <div class="brand-text">
+        <h1>宁波徒步图鉴</h1>
+        <p>Ningbo Hiking Almanac</p>
+      </div>
+    </a>
+
+    <div class="topbar-actions">
+      <div class="progress-chip" title="已打卡进度">
+        <span class="pc-label">打卡</span>
+        <div class="progress-bar"><i id="progressFill"></i></div>
+        <span class="pc-num" id="progressText">0/188</span>
+      </div>
+      <button class="btn btn-sm btn-green" id="randomBtn" type="button">随机一条</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <svg class="hero-scene" viewBox="0 0 1200 208" preserveAspectRatio="xMidYMax slice" aria-hidden="true" shape-rendering="crispEdges">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#8fd0e8" />
+          <stop offset="55%" stop-color="#b3e2ee" />
+          <stop offset="100%" stop-color="#d9f0f2" />
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="1200" height="208" fill="url(#skyGrad)" />
+
+      <!-- 太阳 -->
+      <rect x="996" y="26" width="56" height="56" fill="#ffe07a" />
+      <rect x="1004" y="34" width="40" height="40" fill="#fff0b8" />
+      <rect x="1016" y="46" width="16" height="16" fill="#fffbe8" />
+
+      <!-- 云 -->
+      <g fill="#ffffff" opacity="0.92">
+        <rect x="150" y="42" width="96" height="16" />
+        <rect x="166" y="30" width="64" height="14" />
+        <rect x="182" y="20" width="32" height="12" />
+        <rect x="430" y="66" width="72" height="14" />
+        <rect x="446" y="56" width="44" height="12" />
+        <rect x="820" y="36" width="86" height="14" />
+        <rect x="838" y="26" width="52" height="12" />
+      </g>
+
+      <!-- 远山 -->
+      <polygon fill="#a9c6d8" points="0,122 70,74 140,110 215,66 290,106 360,80 430,114 510,70 585,108 660,84 740,118 820,78 900,110 975,86 1055,114 1130,90 1200,108 1200,208 0,208" />
+      <polygon fill="#bcd6e4" opacity="0.75" points="215,66 245,92 185,92" />
+      <polygon fill="#bcd6e4" opacity="0.75" points="510,70 540,96 480,96" />
+      <polygon fill="#bcd6e4" opacity="0.75" points="820,78 850,102 790,102" />
+
+      <!-- 中景山 -->
+      <polygon fill="#7fa892" points="0,150 60,114 125,144 200,102 270,140 345,110 415,146 495,110 570,144 645,118 720,150 800,114 875,146 950,120 1030,148 1110,122 1200,144 1200,208 0,208" />
+      <polygon fill="#94bba4" opacity="0.6" points="200,102 232,128 168,128" />
+      <polygon fill="#94bba4" opacity="0.6" points="495,110 527,136 463,136" />
+
+      <!-- 近景丘陵 -->
+      <polygon fill="#5f8c37" points="0,174 80,154 160,172 250,150 340,170 430,152 520,174 610,154 700,172 790,152 880,172 970,154 1060,174 1140,158 1200,170 1200,208 0,208" />
+      <polygon fill="#6d9b42" opacity="0.5" points="250,150 282,170 218,170" />
+      <polygon fill="#6d9b42" opacity="0.5" points="790,152 822,172 758,172" />
+
+      <!-- 树 -->
+      <g fill="#3f6323">
+        <polygon points="96,178 104,158 112,178" />
+        <rect x="103" y="178" width="3" height="7" fill="#4a3418" />
+        <polygon points="118,180 127,156 136,180" />
+        <rect x="126" y="180" width="3" height="7" fill="#4a3418" />
+        <polygon points="352,176 361,154 370,176" />
+        <rect x="360" y="176" width="3" height="7" fill="#4a3418" />
+        <polygon points="906,178 915,158 924,178" />
+        <rect x="914" y="178" width="3" height="7" fill="#4a3418" />
+        <polygon points="1090,180 1099,158 1108,180" />
+        <rect x="1098" y="180" width="3" height="7" fill="#4a3418" />
+      </g>
+
+      <!-- 草地前景 -->
+      <rect x="0" y="192" width="1200" height="16" fill="#4c7329" />
+      <g fill="#3f6323" opacity="0.8">
+        <rect x="60" y="196" width="10" height="3" />
+        <rect x="240" y="200" width="14" height="3" />
+        <rect x="470" y="196" width="10" height="3" />
+        <rect x="700" y="200" width="12" height="3" />
+        <rect x="960" y="196" width="10" height="3" />
+        <rect x="1150" y="200" width="12" height="3" />
+      </g>
+
+      <!-- 小鸟 -->
+      <g fill="#4a6070">
+        <rect x="640" y="30" width="3" height="3" />
+        <rect x="646" y="26" width="3" height="3" />
+        <rect x="652" y="30" width="3" height="3" />
+        <rect x="690" y="48" width="2" height="2" />
+        <rect x="694" y="45" width="2" height="2" />
+        <rect x="698" y="48" width="2" height="2" />
+      </g>
+    </svg>
+
+    <div class="hero-copy">
+      <h2>把宁波的山，走成一张地图</h2>
+      <p>188 条实测路线 · 按区县 / 评级 / 里程 / 爬升筛选，找到今天该走的那一条。</p>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><b id="statCount">188</b><span>条路线</span></div>
+      <div class="hero-stat"><b id="statDistrict">10</b><span>个区县</span></div>
+      <div class="hero-stat"><b id="statKm">846</b><span>公里总里程</span></div>
+      <div class="hero-stat is-accent"><b id="statAscent">1025</b><span>最高累计爬升 m</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 筛选 ============ -->
+  <section class="filters panel" id="filterPanel">
+    <div class="filter-head">
+      <h3>筛选条件</h3>
+      <div class="spacer"></div>
+      <button class="btn btn-sm" id="resetBtn" type="button">重置</button>
+      <button class="filter-toggle" id="filterToggle" type="button" aria-expanded="false">
+        <span id="filterToggleText">展开</span>
+      </button>
+    </div>
+
+    <div class="filter-body" id="filterBody">
+      <div class="fgroup full">
+        <label for="q">搜索路线 / 集合点</label>
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 16 16" aria-hidden="true" shape-rendering="crispEdges">
+            <path fill="#3b2416" d="M6 2h4v1h2v1h1v2h1v4h-1v2h-1v1h-2v1H6v-1H4v-1H3v-2H2V6h1V4h1V3h2V2zm0 2H5v1H4v4h1v1h4v-1h1V5H9V4H6zm6 8h1v1h1v1h1v1h-1v1h-1v-1h-1v-1h-1v-1h1v-1z"/>
+          </svg>
+          <input type="search" id="q" placeholder="例如：古道、瀑布、竹林寺…" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="fgroup full">
+        <label>区县</label>
+        <div class="chips" id="districtChips"></div>
+      </div>
+
+      <div class="fgroup span2">
+        <label>难度（星级）</label>
+        <div class="chips" id="diffChips"></div>
+      </div>
+
+      <div class="fgroup">
+        <label>评级（强度档位）</label>
+        <div class="chips" id="tierChips"></div>
+      </div>
+
+      <div class="fgroup">
+        <label>里程</label>
+        <div class="chips" id="lenChips"></div>
+      </div>
+
+      <div class="fgroup span2">
+        <label>累计爬升</label>
+        <div class="chips" id="ascChips"></div>
+      </div>
+
+      <div class="fgroup">
+        <label for="sort">排序</label>
+        <select id="sort">
+          <option value="default">编号（默认）</option>
+          <option value="lenAsc">里程 由短到长</option>
+          <option value="lenDesc">里程 由长到短</option>
+          <option value="ascAsc">爬升 由低到高</option>
+          <option value="ascDesc">爬升 由高到低</option>
+          <option value="diffAsc">难度 由易到难</option>
+          <option value="diffDesc">难度 由难到易</option>
+          <option value="verDesc">数据可靠度 由高到低</option>
+        </select>
+      </div>
+
+      <div class="fgroup span2">
+        <label>线路特色</label>
+        <div class="chips" id="tagChips"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 结果条 ============ -->
+  <div class="result-bar">
+    <div class="result-count" id="resultCount">共 <b>188</b> 条路线</div>
+    <div class="quick-toggles">
+      <button class="chip" id="favOnly" type="button" aria-pressed="false">只看收藏</button>
+      <button class="chip" id="doneOnly" type="button" aria-pressed="false">只看已打卡</button>
+      <button class="chip" id="undoneOnly" type="button" aria-pressed="false">只看未打卡</button>
+    </div>
+  </div>
+
+  <!-- ============ 卡片 ============ -->
+  <section class="grid" id="grid" aria-live="polite"></section>
+
+  <div class="empty" id="empty" hidden>
+    <svg viewBox="0 0 32 32" aria-hidden="true" shape-rendering="crispEdges">
+      <rect x="6" y="12" width="20" height="16" fill="#d8c096" stroke="#5b3a1e" stroke-width="2" />
+      <rect x="6" y="12" width="20" height="4" fill="#b07c43" stroke="#5b3a1e" stroke-width="2" />
+      <rect x="10" y="6" width="4" height="8" fill="#8a5a2b" stroke="#5b3a1e" stroke-width="1" />
+      <rect x="18" y="6" width="4" height="8" fill="#8a5a2b" stroke="#5b3a1e" stroke-width="1" />
+    </svg>
+    <h4>这条山路上还没有脚印</h4>
+    <p>换个筛选条件试试，或者点「重置」看看全部 188 条路线。</p>
+    <button class="btn" id="emptyReset" type="button">重置筛选</button>
+  </div>
+
+  <!-- ============ 行前须知 ============ -->
+  <section class="guide panel" id="guide">
+    <div class="filter-head">
+      <h3>行前须知</h3>
+      <div class="spacer"></div>
+      <span class="guide-sub">出发前 3 分钟读完</span>
+    </div>
+
+    <div class="guide-grid">
+      <article class="guide-card">
+        <h4>评级对照</h4>
+        <ul class="tier-list">
+          <li><span class="tier-pill" style="background:#6ba84f;border-color:#4a7c2f">轻松</span>
+            <span><b>★ / ★☆</b> 半天可回，爬升多在 400m 内，适合新手与亲子。</span></li>
+          <li><span class="tier-pill" style="background:#dda03a;border-color:#b07c1e">中等</span>
+            <span><b>★★ / ★★☆</b> 半天到一天，需要基本体能，多为成熟古道。</span></li>
+          <li><span class="tier-pill" style="background:#cd6334;border-color:#9c4520">较难</span>
+            <span><b>★★★ / ★★★☆</b> 全天行程，爬升 700m 以上，需有徒步经验。</span></li>
+          <li><span class="tier-pill" style="background:#8b4a86;border-color:#66325f">困难</span>
+            <span><b>★★★★</b> 全天以上，路况复杂、部分路段需攀爬，建议结伴或有向导。</span></li>
+        </ul>
+      </article>
+
+      <article class="guide-card">
+        <h4>装备清单</h4>
+        <ul class="dot-list">
+          <li>登山鞋（防滑大底）＋ 速干衣裤</li>
+          <li>饮水 1.5L 起，夏季按 2L 准备</li>
+          <li>头灯或手电，防止走夜路</li>
+          <li>轻便雨衣（山区阵雨来得快）</li>
+          <li>创可贴、云南白药、驱蚊液</li>
+          <li>充电宝＋离线地图</li>
+        </ul>
+      </article>
+
+      <article class="guide-card">
+        <h4>安全要点</h4>
+        <ul class="dot-list">
+          <li>不要独行，至少 2 人以上结伴</li>
+          <li>出发前把路线与预计返回时间告诉家人</li>
+          <li>宁海、余姚山区信号弱，提前下载离线地图</li>
+          <li>宁波日落约 17:30（冬）/ 19:00（夏），倒推出发时间</li>
+          <li>雨后石阶湿滑，瀑布、溯溪线路尤其注意</li>
+          <li>遇到岔路以轨迹为准，不擅自切路</li>
+        </ul>
+      </article>
+
+      <article class="guide-card">
+        <h4>轨迹怎么用</h4>
+        <ul class="dot-list">
+          <li>记下卡片里的<b>六只脚轨迹号</b></li>
+          <li>在「六只脚」App 搜索该编号，下载 GPX 轨迹</li>
+          <li>导入「两步路」或「奥维互动地图」离线使用</li>
+          <li>集合点一栏可直接点「高德导航」到起点</li>
+          <li>回程前核对停车点，避免走错出口</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>数据来源：<b>宁波户外徒步路线大集合</b> · 共 188 条路线 / 10 个区县</div>
+  <div>难度、里程、爬升均为实测汇总值，出行前请结合天气与自身体能判断 · 轨迹号可在「六只脚」App 搜索</div>
+</footer>
+
+<!-- ============ 详情弹窗 ============ -->
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel panel">
+    <div class="modal-bar">
+      <h3 id="modalTitle">路线详情</h3>
+      <button class="modal-close" type="button" data-close aria-label="关闭"></button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/data.js"></script>
+<script src="assets/tracks.js"></script>
+<script src="assets/photos.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
